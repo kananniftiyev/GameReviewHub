@@ -51,7 +51,7 @@ Use a relational database to store the scraped data and user-generated content. 
 ### Game Table
 
 - `game_id` (Primary Key)
-- `name`
+- `name` 
 - `developer`
 - `publisher`
 - `release_date`
