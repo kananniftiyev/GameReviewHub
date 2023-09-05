@@ -23,7 +23,7 @@ public class Game {
     @Column(name = "game_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "developer")
@@ -35,8 +35,11 @@ public class Game {
     @Column(name = "release_date")
     private String releaseDate;
 
+    @Column(name = "description", length = 10000, columnDefinition = "TEXT")
+    private String description;
+
     @ElementCollection
-    @CollectionTable(name = "platforms", joinColumns = @JoinColumn(name = "game_id"))
+    @CollectionTable(name = "buy_links", joinColumns = @JoinColumn(name = "game_id"))
     @Column(name = "buy_links")
     private List<String> buyLinks;
 
@@ -53,7 +56,8 @@ public class Game {
     public Game() {
     }
 
-    public Game(Long id, String name, String developer, String publisher, String releaseDate, List<String> buyLinks,
+    public Game(Long id, String name, String developer, String publisher, String releaseDate, String description,
+            List<String> buyLinks,
             List<String> platforms, List<String> genres) {
         this.id = id;
         this.name = name;
@@ -63,6 +67,20 @@ public class Game {
         this.buyLinks = buyLinks;
         this.platforms = platforms;
         this.genres = genres;
+        this.description = description;
+    }
+
+    public Game(String name, String developer, String publisher, String releaseDate, String description,
+            List<String> buyLinks,
+            List<String> platforms, List<String> genres) {
+        this.name = name;
+        this.developer = developer;
+        this.publisher = publisher;
+        this.releaseDate = releaseDate;
+        this.buyLinks = buyLinks;
+        this.platforms = platforms;
+        this.genres = genres;
+        this.description = description;
     }
 
     public Long getId() {
@@ -103,6 +121,14 @@ public class Game {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<String> getBuyLinks() {

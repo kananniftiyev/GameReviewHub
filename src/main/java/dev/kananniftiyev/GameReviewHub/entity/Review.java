@@ -22,8 +22,11 @@ public class Review {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @Column(name = "content", columnDefinition = "TEXT")
+    @Column(name = "content", columnDefinition = "TEXT", unique = true)
     private String content;
+
+    @Column(name = "rating")
+    private Integer rating;
 
     @Column(name = "reviewer_name")
     private String reviewerName;
@@ -34,10 +37,11 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, Game game, String content, String reviewerName, Date publicationDate) {
+    public Review(Long id, Game game, String content, Integer rating, String reviewerName, Date publicationDate) {
         this.id = id;
         this.game = game;
         this.content = content;
+        this.rating = rating;
         this.reviewerName = reviewerName;
         this.publicationDate = publicationDate;
     }

@@ -55,6 +55,7 @@ Use a relational database to store the scraped data and user-generated content. 
 - `developer`
 - `publisher`
 - `release_date`
+- `description`
 - `buy_links` (JSON array of URLs)
 - `platforms` (JSON array of platforms)
 - `genres` (JSON array of genres)
