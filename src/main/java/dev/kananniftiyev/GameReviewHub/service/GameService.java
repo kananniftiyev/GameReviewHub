@@ -34,11 +34,6 @@ public class GameService {
         return gameRepository.findByNameList(name);
     }
 
-    /*
-     * public List<Game> searchGame(Optional<String> name, Optional<String> genre,
-     * Optional<String> developer, Optional<String> publisher){
-     * 
-     * }
-     */
+    // Query methods
 
 }

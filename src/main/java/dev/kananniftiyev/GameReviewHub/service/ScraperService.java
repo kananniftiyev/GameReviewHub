@@ -33,7 +33,7 @@ public class ScraperService {
         this.restTemplate = restTemplate;
     }
 
-    @Scheduled(fixedRate = 86400000)
+    @Scheduled(fixedRate = 86400000) // 24 hours
     public void scrape() {
         String url = "https://api.steampowered.com/ISteamApps/GetAppList/v2/";
         Map<String, Object> steamAppList = restTemplate.getForObject(url, Map.class);
@@ -189,7 +189,8 @@ public class ScraperService {
         return false; // None of the words are found
     }
 
-    // TODO: Epic Games Link
+    // TODO: Epic Games Link(Think about it)
     // TODO: GamePlatforms
+    // TODO: Review Scraper
 
 }

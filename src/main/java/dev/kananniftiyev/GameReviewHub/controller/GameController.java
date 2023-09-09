@@ -38,13 +38,8 @@ public class GameController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Game>> searchGames(@RequestParam(name = "name", required = false) String name) {
-        return ResponseEntity.ok(gameService.findGameByNameList(name));
-    }
+    // TODO: Query Search
 
     // TODO: Add endpoint /{gameId}/reviews to get all reviews of the game
-
-    // TODO: Add endpoint /search to search games by query params
 
 }
