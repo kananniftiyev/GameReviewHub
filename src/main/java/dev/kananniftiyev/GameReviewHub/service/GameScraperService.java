@@ -21,19 +21,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class ScraperService {
+public class GameScraperService {
     private final GameRepository gameRepository;
-    private final ReviewRepository reviewRepository;
     private final RestTemplate restTemplate;
 
     @Autowired
-    public ScraperService(GameRepository gameRepository, ReviewRepository reviewRepository, RestTemplate restTemplate) {
+    public GameScraperService(GameRepository gameRepository, RestTemplate restTemplate) {
         this.gameRepository = gameRepository;
-        this.reviewRepository = reviewRepository;
         this.restTemplate = restTemplate;
     }
 
-    @Scheduled(fixedRate = 86400000) // 24 hours
+    /**
+     * Scrapes game data from Steam API and saves it to the database.
+     * Uses Jsoup to connect to the Steam market URL and scrape game data.
+     * Skips games that already exist in the database or contain certain keywords.
+     * Sleeps for 5 seconds between requests to avoid getting blocked by the server.
+     */
     public void scrape() {
         String url = "https://api.steampowered.com/ISteamApps/GetAppList/v2/";
         Map<String, Object> steamAppList = restTemplate.getForObject(url, Map.class);

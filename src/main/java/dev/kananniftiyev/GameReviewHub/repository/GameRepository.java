@@ -9,4 +9,6 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Long> {
 
     Game findByName(@Param("name") String name);
+
+    String findName(@Param("name") String name);
 }

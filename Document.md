@@ -64,8 +64,10 @@ Use a relational database to store the scraped data and user-generated content. 
 
 - `review_id` (Primary Key)
 - `game_id` (Foreign Key)
+- `rating`
 - `content`
 - `reviewer_name`
+- `review rating`
 - `publication_date`
 
 ## Data Scrapping Process

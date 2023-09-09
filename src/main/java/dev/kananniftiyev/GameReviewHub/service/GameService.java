@@ -30,10 +30,6 @@ public class GameService {
         return gameRepository.findByName(name);
     }
 
-    public List<Game> findGameByNameList(String name) {
-        return gameRepository.findByNameList(name);
-    }
-
     // Query methods
 
 }

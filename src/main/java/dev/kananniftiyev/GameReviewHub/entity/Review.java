@@ -22,26 +22,26 @@ public class Review {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @Column(name = "content", columnDefinition = "TEXT", unique = true)
-    private String content;
+    @Column(name = "review_rating")
+    private String reviewRating;
 
-    @Column(name = "rating")
-    private Integer rating;
+    @Column(name = "content", columnDefinition = "TEXT", unique = true, length = 10000)
+    private String content;
 
     @Column(name = "reviewer_name")
     private String reviewerName;
 
     @Column(name = "publication_date")
-    private Date publicationDate;
+    private String publicationDate;
 
     public Review() {
     }
 
-    public Review(Long id, Game game, String content, Integer rating, String reviewerName, Date publicationDate) {
-        this.id = id;
+    public Review(Game game, String reviewRating, String content, String reviewerName,
+            String publicationDate) {
         this.game = game;
+        this.reviewRating = reviewRating;
         this.content = content;
-        this.rating = rating;
         this.reviewerName = reviewerName;
         this.publicationDate = publicationDate;
     }
@@ -62,6 +62,14 @@ public class Review {
         this.game = game;
     }
 
+    public String getReviewRating() {
+        return this.reviewRating;
+    }
+
+    public void setReviewRating(String reviewRating) {
+        this.reviewRating = reviewRating;
+    }
+
     public String getContent() {
         return this.content;
     }
@@ -78,11 +86,11 @@ public class Review {
         this.reviewerName = reviewerName;
     }
 
-    public Date getPublicationDate() {
+    public String getPublicationDate() {
         return this.publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 
