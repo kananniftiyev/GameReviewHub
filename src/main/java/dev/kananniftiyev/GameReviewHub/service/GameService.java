@@ -1,8 +1,8 @@
 package dev.kananniftiyev.GameReviewHub.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
 
 @Service
 public class GameService {
-    final GameRepository gameRepository;
+    private final GameRepository gameRepository;
 
     @Autowired
     public GameService(GameRepository gameRepository) {
@@ -30,6 +30,6 @@ public class GameService {
         return gameRepository.findByName(name);
     }
 
-    // Query methods
+    // TODO: Query methods
 
 }

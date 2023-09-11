@@ -48,6 +48,7 @@ public class Game {
     @Column(name = "platform")
     private List<String> platforms;
 
+    // TODO: Fix Unefficient Genre Mapping
     @ElementCollection
     @CollectionTable(name = "genres", joinColumns = @JoinColumn(name = "game_id"))
     @Column(name = "genre")

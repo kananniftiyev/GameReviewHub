@@ -98,7 +98,7 @@ public class ReviewScraperService {
     }
 
     private List<String> scrapContent(Document doc) {
-        Elements contentElements = doc.select("p.mb-0 wspw");
+        Elements contentElements = doc.select("p.mb-0.wspw");
         List<String> contents = new ArrayList<>();
 
         if (contentElements != null) {
@@ -110,6 +110,7 @@ public class ReviewScraperService {
         return contents;
     }
 
+    // TODO: Find a better way to scrap reviewer name
     private List<String> scrapReviewerName(Document doc) {
         Elements reviewerNameElements = doc.select("a.deco-none");
         List<String> reviewerNames = new ArrayList<>();
@@ -124,13 +125,12 @@ public class ReviewScraperService {
     }
 
     private List<String> scrapReviewDate(Document doc) {
-        Elements reviewDateElements = doc.select("div.text-right date-block");
+        Elements reviewDateElements = doc.select("div.text-right.date-block");
         List<String> reviewDates = new ArrayList<>();
 
         if (reviewDateElements != null) {
             for (Element reviewDateElement : reviewDateElements) {
                 reviewDates.add(reviewDateElement.text());
-                System.out.println(reviewDateElement.text());
             }
         }
 
