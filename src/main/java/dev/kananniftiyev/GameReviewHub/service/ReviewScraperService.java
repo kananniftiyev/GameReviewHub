@@ -33,10 +33,12 @@ public class ReviewScraperService {
                 Document doc = Jsoup.connect(url).get();
                 String name = scrapName(doc);
 
+                // TODO: Better name matching algorithm
                 Game game = gameRepository.findByName(name);
                 if (game == null) {
                     continue;
                 }
+                // TODO: Find Where to put General Rating
                 String generalRating = scrapGeneralGameRating(doc);
                 System.out.println(generalRating);
 
@@ -66,7 +68,7 @@ public class ReviewScraperService {
 
     }
 
-    public String scrapName(Document doc) {
+    private String scrapName(Document doc) {
         Element nameElement = doc.selectFirst("h1.mb-0");
         if (nameElement == null) {
             return null;
@@ -74,7 +76,7 @@ public class ReviewScraperService {
         return nameElement.text();
     }
 
-    public String scrapGeneralGameRating(Document doc) {
+    private String scrapGeneralGameRating(Document doc) {
         Element ratingElement = doc.selectFirst("div.inner-orb");
         if (ratingElement == null) {
             return null;
@@ -82,7 +84,7 @@ public class ReviewScraperService {
         return ratingElement.text();
     }
 
-    public List<String> scrapReviewRating(Document doc) {
+    private List<String> scrapReviewRating(Document doc) {
         Elements ratingElements = doc.select("span.score-number-bold");
         List<String> ratings = new ArrayList<>();
 
@@ -95,7 +97,7 @@ public class ReviewScraperService {
         return ratings;
     }
 
-    public List<String> scrapContent(Document doc) {
+    private List<String> scrapContent(Document doc) {
         Elements contentElements = doc.select("p.mb-0 wspw");
         List<String> contents = new ArrayList<>();
 
@@ -108,7 +110,7 @@ public class ReviewScraperService {
         return contents;
     }
 
-    public List<String> scrapReviewerName(Document doc) {
+    private List<String> scrapReviewerName(Document doc) {
         Elements reviewerNameElements = doc.select("a.deco-none");
         List<String> reviewerNames = new ArrayList<>();
 
@@ -121,7 +123,7 @@ public class ReviewScraperService {
         return reviewerNames;
     }
 
-    public List<String> scrapReviewDate(Document doc) {
+    private List<String> scrapReviewDate(Document doc) {
         Elements reviewDateElements = doc.select("div.text-right date-block");
         List<String> reviewDates = new ArrayList<>();
 

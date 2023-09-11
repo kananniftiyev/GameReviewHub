@@ -89,8 +89,7 @@ public class GameScraperService {
                         GameBuyLinks, GamePlatforms, GameGenres);
                 gameRepository.save(game);
 
-                // Thread.sleep(5000); // Sleep for 5 second to avoid getting blocked by the
-                // server
+                Thread.sleep(5000); // Sleep for 5 second to avoid getting blocked by the server
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -194,6 +193,5 @@ public class GameScraperService {
 
     // TODO: Epic Games Link(Think about it)
     // TODO: GamePlatforms
-    // TODO: Review Scraper
 
 }
