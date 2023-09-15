@@ -5,6 +5,7 @@ import java.util.List;
 public class GameReviewDTO {
     private long id;
     private String name;
+    private String generalRating;
     private List<ReviewDTO> reviews;
 
     public GameReviewDTO() {
@@ -38,6 +39,14 @@ public class GameReviewDTO {
 
     public void setReviews(List<ReviewDTO> reviews) {
         this.reviews = reviews;
+    }
+
+    public String getGeneralRating() {
+        return this.generalRating;
+    }
+
+    public void setGeneralRating(String generalRating) {
+        this.generalRating = generalRating;
     }
 
 }

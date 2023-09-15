@@ -36,6 +36,9 @@ public class GameController {
     @GetMapping("/{gameId}")
     public ResponseEntity<GameDTO> getGameById(@PathVariable Long gameId) {
         GameDTO gameDTO = gameService.findGameDTOById(gameId);
+        if (gameDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(gameDTO);
     }
 
@@ -50,7 +53,5 @@ public class GameController {
     }
 
     // TODO: Query Search
-
-    // TODO: Add endpoint /{gameId}/reviews to get all reviews of the game
 
 }

@@ -55,6 +55,9 @@ public class Game {
     @ManyToMany
     private List<Genre> genres;
 
+    @Column(name = "general_rating")
+    private String generalRating;
+
     public Game() {
     }
 
@@ -141,6 +144,14 @@ public class Game {
 
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
+    }
+
+    public String getGeneralRating() {
+        return this.generalRating;
+    }
+
+    public void setGeneralRating(String generalRating) {
+        this.generalRating = generalRating;
     }
 
     @Override

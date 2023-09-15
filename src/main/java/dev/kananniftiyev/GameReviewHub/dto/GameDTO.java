@@ -9,6 +9,7 @@ public class GameDTO {
     private String publisher;
     private String releaseDate;
     private String description;
+    private String generalRating;
     private List<String> buyLinks;
     private List<String> platforms;
     private List<String> genres;
@@ -99,6 +100,14 @@ public class GameDTO {
 
     public void setGenres(List<String> genres) {
         this.genres = genres;
+    }
+
+    public String getGeneralRating() {
+        return this.generalRating;
+    }
+
+    public void setGeneralRating(String generalRating) {
+        this.generalRating = generalRating;
     }
 
 }
