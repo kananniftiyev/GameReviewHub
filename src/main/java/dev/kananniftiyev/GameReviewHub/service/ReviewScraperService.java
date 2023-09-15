@@ -60,6 +60,7 @@ public class ReviewScraperService {
 
                     reviewRepository.save(review);
                 }
+                // TODO: Check for next page of reviews
 
             } catch (Exception e) {
                 System.out.println("Error: " + e);
@@ -112,7 +113,7 @@ public class ReviewScraperService {
 
     // TODO: Find a better way to scrap reviewer name
     private List<String> scrapReviewerName(Document doc) {
-        Elements reviewerNameElements = doc.select("a.deco-none");
+        Elements reviewerNameElements = doc.select("span.outlet-name > a.deco-none");
         List<String> reviewerNames = new ArrayList<>();
 
         if (reviewerNameElements != null) {

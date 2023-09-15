@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import dev.kananniftiyev.GameReviewHub.entity.Game;
+import dev.kananniftiyev.GameReviewHub.entity.Genre;
 import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
+import dev.kananniftiyev.GameReviewHub.repository.GenreRepository;
 import dev.kananniftiyev.GameReviewHub.repository.ReviewRepository;
 
 import java.util.ArrayList;
@@ -24,11 +26,14 @@ import java.util.regex.Pattern;
 public class GameScraperService {
     private final GameRepository gameRepository;
     private final RestTemplate restTemplate;
+    private final GenreRepository GenreRepository;
 
     @Autowired
-    public GameScraperService(GameRepository gameRepository, RestTemplate restTemplate) {
+    public GameScraperService(GameRepository gameRepository, RestTemplate restTemplate,
+            GenreRepository GenreRepository) {
         this.gameRepository = gameRepository;
         this.restTemplate = restTemplate;
+        this.GenreRepository = GenreRepository;
     }
 
     /**
@@ -84,9 +89,22 @@ public class GameScraperService {
                     continue; // Skip processing this game
                 }
 
+                List<Genre> gameGenres = new ArrayList<Genre>();
+
+                for (String genreName : GameGenres) {
+                    Genre genre = GenreRepository.findByName(genreName);
+
+                    if (genre == null) {
+                        genre = new Genre(genreName);
+                        GenreRepository.save(genre);
+                    }
+
+                    gameGenres.add(genre);
+                }
+
                 // Create and save the game
                 game = new Game(GameName, GameDeveloper, GamePublisher, GameReleaseDate, GameDescription,
-                        GameBuyLinks, GamePlatforms, GameGenres);
+                        GameBuyLinks, GamePlatforms, gameGenres);
                 gameRepository.save(game);
 
                 Thread.sleep(5000); // Sleep for 5 second to avoid getting blocked by the server

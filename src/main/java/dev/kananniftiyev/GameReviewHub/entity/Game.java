@@ -4,6 +4,7 @@
  */
 package dev.kananniftiyev.GameReviewHub.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -13,6 +14,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+
 import java.util.List;
 
 @Entity
@@ -48,32 +52,15 @@ public class Game {
     @Column(name = "platform")
     private List<String> platforms;
 
-    // TODO: Fix Unefficient Genre Mapping
-    @ElementCollection
-    @CollectionTable(name = "genres", joinColumns = @JoinColumn(name = "game_id"))
-    @Column(name = "genre")
-    private List<String> genres;
+    @ManyToMany
+    private List<Genre> genres;
 
     public Game() {
     }
 
-    public Game(Long id, String name, String developer, String publisher, String releaseDate, String description,
-            List<String> buyLinks,
-            List<String> platforms, List<String> genres) {
-        this.id = id;
-        this.name = name;
-        this.developer = developer;
-        this.publisher = publisher;
-        this.releaseDate = releaseDate;
-        this.buyLinks = buyLinks;
-        this.platforms = platforms;
-        this.genres = genres;
-        this.description = description;
-    }
-
     public Game(String name, String developer, String publisher, String releaseDate, String description,
             List<String> buyLinks,
-            List<String> platforms, List<String> genres) {
+            List<String> platforms, List<Genre> genres) {
         this.name = name;
         this.developer = developer;
         this.publisher = publisher;
@@ -148,11 +135,11 @@ public class Game {
         this.platforms = platforms;
     }
 
-    public List<String> getGenres() {
+    public List<Genre> getGenres() {
         return this.genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.kananniftiyev.GameReviewHub.service.GameReviewService;
 import dev.kananniftiyev.GameReviewHub.service.GameService;
+import dev.kananniftiyev.GameReviewHub.dto.GameDTO;
 import dev.kananniftiyev.GameReviewHub.dto.GameReviewDTO;
 import dev.kananniftiyev.GameReviewHub.entity.Game;
 
@@ -28,18 +29,14 @@ public class GameController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Game>> getAllGames() {
-        return ResponseEntity.ok(gameService.findAllGames());
+    public ResponseEntity<List<GameDTO>> getAllGames() {
+        return ResponseEntity.ok(gameService.findAllGamesDTO());
     }
 
     @GetMapping("/{gameId}")
-    public ResponseEntity<Game> getGameById(@PathVariable Long gameId) {
-        Game game = gameService.findGameById(gameId);
-        if (game == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(game);
-        }
+    public ResponseEntity<GameDTO> getGameById(@PathVariable Long gameId) {
+        GameDTO gameDTO = gameService.findGameDTOById(gameId);
+        return ResponseEntity.ok(gameDTO);
     }
 
     @GetMapping("/{gameId}/reviews")
