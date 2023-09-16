@@ -11,7 +11,4 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     Game findByName(@Param("name") String name);
 
-    @Query("SELECT g FROM Game g WHERE LOWER(g.name) LIKE %:name%")
-    Game findByNameContainingIgnoreCase(@Param("name") String name);
-
 }

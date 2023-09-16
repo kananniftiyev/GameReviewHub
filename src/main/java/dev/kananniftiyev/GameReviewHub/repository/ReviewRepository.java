@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import dev.kananniftiyev.GameReviewHub.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    // Review findbyContent(@Param("content") String content);
 
     List<Review> findReviewsByGameId(@Param("game_id") Long game_id);
 
