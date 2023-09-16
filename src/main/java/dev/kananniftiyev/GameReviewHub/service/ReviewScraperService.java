@@ -61,7 +61,9 @@ public class ReviewScraperService {
                     String reviewerName = reviewerNames.get(j);
                     String reviewDate = reviewDates.get(j);
 
-                    // TODO: Check if review exists
+                    if (reviewRepository.findReviewByContent(content) != null) {
+                        continue;
+                    }
                     Review review = new Review(game, reviewRating, content, reviewerName, reviewDate);
 
                     reviewRepository.save(review);

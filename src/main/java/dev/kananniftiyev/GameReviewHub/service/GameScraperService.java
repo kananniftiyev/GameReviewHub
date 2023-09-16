@@ -122,6 +122,7 @@ public class GameScraperService {
         if (element != null) {
             String gameName = element.text();
             if (gameName != null && !gameName.isEmpty()) {
+                gameName = gameName.replaceAll("™", "");
                 return gameName;
             }
         }
@@ -210,6 +211,5 @@ public class GameScraperService {
     }
 
     // TODO: Epic Games Link(Think about it)
-    // TODO: GamePlatforms
 
 }

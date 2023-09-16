@@ -11,4 +11,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     // Review findbyContent(@Param("content") String content);
 
     List<Review> findReviewsByGameId(@Param("game_id") Long game_id);
+
+    Review findReviewByContent(@Param("content") String content);
 }
