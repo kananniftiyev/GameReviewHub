@@ -25,18 +25,6 @@ public class GameService {
 
     }
 
-    public Game findGameById(Long id) {
-        return gameRepository.findById(id).orElse(null);
-    }
-
-    public List<Game> findAllGames() {
-        return gameRepository.findAll();
-    }
-
-    public Game findGameByName(String name) {
-        return gameRepository.findByName(name);
-    }
-
     public List<GameDTO> findAllGamesDTO() {
         return gameRepository.findAll().stream()
                 .map(game -> modelMapper.map(game, GameDTO.class))
