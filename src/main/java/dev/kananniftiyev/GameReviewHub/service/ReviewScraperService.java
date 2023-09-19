@@ -7,7 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.kananniftiyev.GameReviewHub.entity.Game;
@@ -20,7 +19,6 @@ public class ReviewScraperService {
     private final ReviewRepository reviewRepository;
     private final GameRepository gameRepository;
 
-    @Autowired
     public ReviewScraperService(ReviewRepository reviewRepository, GameRepository gameRepository) {
         this.reviewRepository = reviewRepository;
         this.gameRepository = gameRepository;
@@ -54,6 +52,19 @@ public class ReviewScraperService {
                 List<String> contents = scrapContent(doc);
                 List<String> reviewerNames = scrapReviewerName(doc);
                 List<String> reviewDates = scrapReviewDate(doc);
+
+                for (int k = 2; k <= 10; k++) {
+                    url = "https://opencritic.com/game/" + i + "/*/reviews?page=" + k;
+                    doc = Jsoup.connect(url).get();
+                    if (doc.selectFirst("span.score-number-bold") != null) {
+                        reviewRatings.addAll(scrapReviewRating(doc));
+                        contents.addAll(scrapContent(doc));
+                        reviewerNames.addAll(scrapReviewerName(doc));
+                        reviewDates.addAll(scrapReviewDate(doc));
+                    } else {
+                        break;
+                    }
+                }
 
                 for (int j = 0; j < reviewRatings.size(); j++) {
                     String reviewRating = reviewRatings.get(j);
@@ -106,12 +117,17 @@ public class ReviewScraperService {
     }
 
     private List<String> scrapReviewRating(Document doc) {
-        Elements ratingElements = doc.select("span.score-number-bold");
+        Elements ratingElements = doc.select("app-score-display-raw > span");
         List<String> ratings = new ArrayList<>();
 
         if (ratingElements != null) {
             for (Element ratingElement : ratingElements) {
-                ratings.add(ratingElement.text());
+                if (ratingElement.tagName().equals("i")) {
+                    ratings.add("IMAGE");
+                } else {
+                    ratings.add(ratingElement.text());
+                }
+
             }
         }
 

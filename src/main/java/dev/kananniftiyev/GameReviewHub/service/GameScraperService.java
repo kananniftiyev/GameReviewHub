@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// TODO: Create code to update infos of games that are already in the database
 @Service
 public class GameScraperService {
     private final GameRepository gameRepository;

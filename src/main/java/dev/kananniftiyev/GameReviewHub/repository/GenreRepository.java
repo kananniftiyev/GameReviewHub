@@ -6,4 +6,5 @@ import dev.kananniftiyev.GameReviewHub.entity.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
     Genre findByName(String name);
+
 }

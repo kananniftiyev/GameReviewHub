@@ -14,7 +14,6 @@ import dev.kananniftiyev.GameReviewHub.service.GameReviewService;
 import dev.kananniftiyev.GameReviewHub.service.GameService;
 import dev.kananniftiyev.GameReviewHub.dto.GameDTO;
 import dev.kananniftiyev.GameReviewHub.dto.GameReviewDTO;
-import dev.kananniftiyev.GameReviewHub.entity.Game;
 
 @RestController
 @RequestMapping("/api/v1/games")

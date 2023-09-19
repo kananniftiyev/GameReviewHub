@@ -25,7 +25,7 @@ public class Review {
     @Column(name = "review_rating")
     private String reviewRating;
 
-    @Column(name = "content", columnDefinition = "TEXT", unique = true, length = 10000)
+    @Column(name = "content", columnDefinition = "TEXT", unique = true, length = 20000)
     private String content;
 
     @Column(name = "reviewer_name")
