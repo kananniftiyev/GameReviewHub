@@ -2,6 +2,7 @@ package dev.kananniftiyev.GameReviewHub.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,6 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import dev.kananniftiyev.GameReviewHub.data.ReviewContent;
 import dev.kananniftiyev.GameReviewHub.entity.Game;
 import dev.kananniftiyev.GameReviewHub.entity.Review;
 import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
@@ -48,29 +50,26 @@ public class ReviewScraperService {
                 gameRepository.save(game);
                 url = "https://opencritic.com/game/" + i + "/*/reviews";
                 doc = Jsoup.connect(url).get();
-                List<String> reviewRatings = scrapReviewRating(doc);
-                List<String> contents = scrapContent(doc);
-                List<String> reviewerNames = scrapReviewerName(doc);
-                List<String> reviewDates = scrapReviewDate(doc);
+                List<ReviewContent> reviewContents = scrapReviewContents(doc, i);
 
-                for (int k = 2; k <= 10; k++) {
-                    url = "https://opencritic.com/game/" + i + "/*/reviews?page=" + k;
-                    doc = Jsoup.connect(url).get();
-                    if (doc.selectFirst("span.score-number-bold") != null) {
-                        reviewRatings.addAll(scrapReviewRating(doc));
-                        contents.addAll(scrapContent(doc));
-                        reviewerNames.addAll(scrapReviewerName(doc));
-                        reviewDates.addAll(scrapReviewDate(doc));
-                    } else {
-                        break;
-                    }
-                }
+                // for (int k = 2; k <= 10; k++) {
+                // url = "https://opencritic.com/game/" + i + "/*/reviews?page=" + k;
+                // doc = Jsoup.connect(url).get();
+                // if (doc.selectFirst("span.score-number-bold") != null) {
+                // reviewRatings.addAll(scrapReviewRating(doc));
+                // contents.addAll(scrapContent(doc));
+                // reviewerNames.addAll(scrapReviewerName(doc));
+                // reviewDates.addAll(scrapReviewDate(doc));
+                // } else {
+                // break;
+                // }
+                // }
 
-                for (int j = 0; j < reviewRatings.size(); j++) {
-                    String reviewRating = reviewRatings.get(j);
-                    String content = contents.get(j);
-                    String reviewerName = reviewerNames.get(j);
-                    String reviewDate = reviewDates.get(j);
+                for (int j = 0; j < reviewContents.size(); j++) {
+                    String reviewRating = reviewContents.get(j).getReviewRating();
+                    String content = reviewContents.get(j).getContent();
+                    String reviewerName = reviewContents.get(j).getReviewerName();
+                    String reviewDate = reviewContents.get(j).getReviewDate();
 
                     if (reviewRepository.findReviewByContent(content) != null) {
                         continue;
@@ -116,62 +115,46 @@ public class ReviewScraperService {
         return ratingElement.text();
     }
 
-    private List<String> scrapReviewRating(Document doc) {
-        Elements ratingElements = doc.select("app-score-display-raw > span");
-        List<String> ratings = new ArrayList<>();
-
-        if (ratingElements != null) {
-            for (Element ratingElement : ratingElements) {
-                if (ratingElement.tagName().equals("i")) {
-                    ratings.add("IMAGE");
-                } else {
-                    ratings.add(ratingElement.text());
+    private List<ReviewContent> scrapReviewContents(Document doc, int i) {
+        List<ReviewContent> reviewContents = new ArrayList<>();
+        Elements elements = doc.select("app-review-row");
+        for (int k = 2; k <= 10; k++) {
+            String url = "https://opencritic.com/game/" + i + "/*/reviews?page=" + k;
+            try {
+                doc = Jsoup.connect(url).get();
+                Elements extraElements = doc.select("app-review-row");
+                if (extraElements == null) {
+                    continue;
                 }
-
+                for (Element extra : extraElements) {
+                    elements.add(extra);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
             }
         }
 
-        return ratings;
-    }
+        for (Element element : elements) {
+            Element divInsideMain = element.selectFirst("div.row.review-row");
 
-    private List<String> scrapContent(Document doc) {
-        Elements contentElements = doc.select("p.mb-0.wspw");
-        List<String> contents = new ArrayList<>();
+            if (divInsideMain != null) {
+                Element reviewScoreElement = divInsideMain.selectFirst("app-score-display-raw > span");
+                Element reviewerNameElement = divInsideMain.selectFirst("span.outlet-name > a");
+                Element reviewContentElement = divInsideMain.selectFirst("p.mb-0.wspw");
+                Element reviewDateElement = divInsideMain.selectFirst("div.text-right.date-block");
 
-        if (contentElements != null) {
-            for (Element contentElement : contentElements) {
-                contents.add(contentElement.text());
+                // Extract data from elements
+                String reviewRating = (reviewScoreElement != null) ? reviewScoreElement.text() : "";
+                String reviewerName = (reviewerNameElement != null) ? reviewerNameElement.text() : "";
+                String content = (reviewContentElement != null) ? reviewContentElement.text() : "";
+                String reviewDate = (reviewDateElement != null) ? reviewDateElement.text() : "";
+
+                ReviewContent reviewContent = new ReviewContent(reviewerName, reviewRating, reviewDate, content);
+                reviewContents.add(reviewContent);
             }
         }
 
-        return contents;
+        return reviewContents;
+
     }
-
-    private List<String> scrapReviewerName(Document doc) {
-        Elements reviewerNameElements = doc.select("span.outlet-name > a.deco-none");
-        List<String> reviewerNames = new ArrayList<>();
-
-        if (reviewerNameElements != null) {
-            for (Element reviewerNameElement : reviewerNameElements) {
-                System.out.println(reviewerNameElement.text());
-                reviewerNames.add(reviewerNameElement.text());
-            }
-        }
-
-        return reviewerNames;
-    }
-
-    private List<String> scrapReviewDate(Document doc) {
-        Elements reviewDateElements = doc.select("div.text-right.date-block");
-        List<String> reviewDates = new ArrayList<>();
-
-        if (reviewDateElements != null) {
-            for (Element reviewDateElement : reviewDateElements) {
-                reviewDates.add(reviewDateElement.text());
-            }
-        }
-
-        return reviewDates;
-    }
-
 }
