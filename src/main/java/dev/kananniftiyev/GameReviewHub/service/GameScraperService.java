@@ -5,7 +5,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,7 +12,6 @@ import dev.kananniftiyev.GameReviewHub.entity.Game;
 import dev.kananniftiyev.GameReviewHub.entity.Genre;
 import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
 import dev.kananniftiyev.GameReviewHub.repository.GenreRepository;
-import dev.kananniftiyev.GameReviewHub.repository.ReviewRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +27,6 @@ public class GameScraperService {
     private final RestTemplate restTemplate;
     private final GenreRepository GenreRepository;
 
-    @Autowired
     public GameScraperService(GameRepository gameRepository, RestTemplate restTemplate,
             GenreRepository GenreRepository) {
         this.gameRepository = gameRepository;

@@ -3,8 +3,8 @@ package dev.kananniftiyev.GameReviewHub.dto;
 public class ReviewDTO {
     private String reviewerName;
     private String reviewRating;
-    private String content;
     private String publicationDate;
+    private String content;
 
     public ReviewDTO() {
     }

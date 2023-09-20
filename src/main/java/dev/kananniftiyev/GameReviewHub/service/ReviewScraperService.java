@@ -2,7 +2,6 @@ package dev.kananniftiyev.GameReviewHub.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -33,7 +32,7 @@ public class ReviewScraperService {
                 Document doc = Jsoup.connect(url).get();
                 String name = scrapName(doc);
 
-                // TODO: Check if it works good
+                // TODO: FIX THIS LATER
                 Game game = gameRepository.findByName(name);
                 if (game == null) {
                     System.out.println("Game not found: " + name);
@@ -52,19 +51,6 @@ public class ReviewScraperService {
                 doc = Jsoup.connect(url).get();
                 List<ReviewContent> reviewContents = scrapReviewContents(doc, i);
 
-                // for (int k = 2; k <= 10; k++) {
-                // url = "https://opencritic.com/game/" + i + "/*/reviews?page=" + k;
-                // doc = Jsoup.connect(url).get();
-                // if (doc.selectFirst("span.score-number-bold") != null) {
-                // reviewRatings.addAll(scrapReviewRating(doc));
-                // contents.addAll(scrapContent(doc));
-                // reviewerNames.addAll(scrapReviewerName(doc));
-                // reviewDates.addAll(scrapReviewDate(doc));
-                // } else {
-                // break;
-                // }
-                // }
-
                 for (int j = 0; j < reviewContents.size(); j++) {
                     String reviewRating = reviewContents.get(j).getReviewRating();
                     String content = reviewContents.get(j).getContent();
@@ -77,8 +63,8 @@ public class ReviewScraperService {
                     Review review = new Review(game, reviewRating, content, reviewerName, reviewDate);
 
                     reviewRepository.save(review);
+                    Thread.sleep(5000);
                 }
-                // TODO: Check for next page of reviews
 
             } catch (Exception e) {
                 System.out.println("Error: " + e);
@@ -115,6 +101,7 @@ public class ReviewScraperService {
         return ratingElement.text();
     }
 
+    // TODO: OPTIMIZE
     private List<ReviewContent> scrapReviewContents(Document doc, int i) {
         List<ReviewContent> reviewContents = new ArrayList<>();
         Elements elements = doc.select("app-review-row");

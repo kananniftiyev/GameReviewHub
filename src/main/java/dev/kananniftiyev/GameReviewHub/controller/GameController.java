@@ -2,12 +2,10 @@ package dev.kananniftiyev.GameReviewHub.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.kananniftiyev.GameReviewHub.service.GameReviewService;
@@ -21,7 +19,6 @@ public class GameController {
     private final GameService gameService;
     private final GameReviewService gameReviewService;
 
-    @Autowired
     public GameController(GameService gameService, GameReviewService gameReviewService) {
         this.gameService = gameService;
         this.gameReviewService = gameReviewService;

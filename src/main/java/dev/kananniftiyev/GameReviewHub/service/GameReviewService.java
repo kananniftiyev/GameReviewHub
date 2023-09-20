@@ -1,11 +1,9 @@
 package dev.kananniftiyev.GameReviewHub.service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.kananniftiyev.GameReviewHub.dto.GameReviewDTO;
@@ -21,7 +19,6 @@ public class GameReviewService {
     private final ReviewRepository reviewRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
     public GameReviewService(GameRepository gameRepository, ReviewRepository reviewRepository,
             ModelMapper modelMapper) {
         this.gameRepository = gameRepository;
