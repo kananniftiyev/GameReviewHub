@@ -101,7 +101,6 @@ public class ReviewScraperService {
         return ratingElement.text();
     }
 
-    // TODO: OPTIMIZE
     private List<ReviewContent> scrapReviewContents(Document doc, int i) {
         List<ReviewContent> reviewContents = new ArrayList<>();
         Elements elements = doc.select("app-review-row");
@@ -110,8 +109,9 @@ public class ReviewScraperService {
             try {
                 doc = Jsoup.connect(url).get();
                 Elements extraElements = doc.select("app-review-row");
-                if (extraElements == null) {
-                    continue;
+                if (extraElements.isEmpty()) {
+                    break; // Changed This due to if there is no extra app-review-row then there wont be on
+                           // other pages neither.
                 }
                 for (Element extra : extraElements) {
                     elements.add(extra);
