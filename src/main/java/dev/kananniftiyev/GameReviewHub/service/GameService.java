@@ -3,11 +3,12 @@ package dev.kananniftiyev.GameReviewHub.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.modelmapper.AbstractConverter;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.JpaSort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import dev.kananniftiyev.GameReviewHub.QueryParams.GameSpecification;
 import dev.kananniftiyev.GameReviewHub.dto.GameDTO;
 import dev.kananniftiyev.GameReviewHub.entity.Game;
 import dev.kananniftiyev.GameReviewHub.entity.Genre;
@@ -18,7 +19,6 @@ public class GameService {
     private final GameRepository gameRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
     public GameService(GameRepository gameRepository, ModelMapper modelMapper) {
         this.gameRepository = gameRepository;
         this.modelMapper = modelMapper;
@@ -36,6 +36,15 @@ public class GameService {
         return modelMapper.map(game, GameDTO.class);
     }
 
-    // TODO: Query methods
+    public List<GameDTO> findGamesBySpec(String name, String developer, String publisher, String releaseDate,
+            String generalRating) {
+        Specification<Game> spec = GameSpecification.searchByCriteria(name, developer, publisher, releaseDate,
+                generalRating);
+        return gameRepository.findAll(spec, JpaSort.unsorted())
+                .stream()
+                .map(game -> modelMapper.map(game, GameDTO.class))
+                .collect(Collectors.toList());
+
+    }
 
 }
