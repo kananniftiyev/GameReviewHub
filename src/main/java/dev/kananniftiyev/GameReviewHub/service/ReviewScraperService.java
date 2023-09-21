@@ -7,8 +7,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
 import dev.kananniftiyev.GameReviewHub.data.ReviewContent;
 import dev.kananniftiyev.GameReviewHub.entity.Game;
 import dev.kananniftiyev.GameReviewHub.entity.Review;
@@ -19,6 +21,7 @@ import dev.kananniftiyev.GameReviewHub.repository.ReviewRepository;
 public class ReviewScraperService {
     private final ReviewRepository reviewRepository;
     private final GameRepository gameRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ReviewScraperService.class);
 
     public ReviewScraperService(ReviewRepository reviewRepository, GameRepository gameRepository) {
         this.reviewRepository = reviewRepository;
@@ -33,15 +36,13 @@ public class ReviewScraperService {
                 String name = scrapName(doc);
 
                 // TODO: FIX THIS LATER
+
                 Game game = gameRepository.findByName(name);
                 if (game == null) {
-                    System.out.println("Game not found: " + name);
-                    continue;
-                } else if (!name.equals(game.getName())) {
-                    System.out.println("Game name does not match: " + name + " " + game.getName());
-
+                    logger.warn(name + ":Not Found");
                     continue;
                 }
+
                 String generalRating = scrapGeneralGameRating(doc);
                 List<String> platforms = scrapPlatforms(doc);
                 game.setPlatforms(platforms);
