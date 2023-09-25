@@ -16,7 +16,6 @@ public class ScrapScheduler {
         this.gameScraperService = gameScraperService;
     }
 
-    // TODO: Make them run in parallel
     @Scheduled(fixedRate = 24 * 60 * 60 * 1000) // Run every 24 hours
     public void scheduleScraping() {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
