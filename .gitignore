@@ -38,3 +38,4 @@ src/main/resources/*
 .env
 myapp.log
 TODO.md
+src/main/resources/application.properties
