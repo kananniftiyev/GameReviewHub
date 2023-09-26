@@ -2,8 +2,6 @@ package dev.kananniftiyev.GameReviewHub.controller;
 
 import java.util.List;
 
-import org.springframework.data.jpa.domain.JpaSort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.kananniftiyev.GameReviewHub.service.GameReviewService;
 import dev.kananniftiyev.GameReviewHub.service.GameService;
-import dev.kananniftiyev.GameReviewHub.QueryParams.GameSpecification;
 import dev.kananniftiyev.GameReviewHub.dto.GameDTO;
 import dev.kananniftiyev.GameReviewHub.dto.GameReviewDTO;
-import dev.kananniftiyev.GameReviewHub.entity.Game;
-import dev.kananniftiyev.GameReviewHub.entity.Genre;
 import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
 
 @RestController
@@ -25,12 +20,10 @@ import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
 public class GameController {
     private final GameService gameService;
     private final GameReviewService gameReviewService;
-    private final GameRepository gameRepository;
 
     public GameController(GameService gameService, GameReviewService gameReviewService, GameRepository gameRepository) {
         this.gameService = gameService;
         this.gameReviewService = gameReviewService;
-        this.gameRepository = gameRepository;
     }
 
     @GetMapping
