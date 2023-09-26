@@ -36,8 +36,6 @@ public class ReviewScraperService {
                 Document doc = Jsoup.connect(url).get();
                 String name = scrapName(doc);
 
-                // TODO: FIX THIS LATER
-
                 Game game = gameRepository.findByName(name);
                 if (game == null) {
                     continue;

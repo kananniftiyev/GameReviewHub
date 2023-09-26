@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import dev.kananniftiyev.GameReviewHub.QueryParams.GameSpecification;
 import dev.kananniftiyev.GameReviewHub.dto.GameDTO;
 import dev.kananniftiyev.GameReviewHub.entity.Game;
-import dev.kananniftiyev.GameReviewHub.entity.Genre;
 import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
 
 @Service

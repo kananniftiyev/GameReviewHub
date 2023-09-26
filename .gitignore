@@ -33,7 +33,6 @@ build/
 .vscode/
 Document.md
 target/
-**/src/main/resources/application.properties
 src/main/resources/application.properties
 src/main/resources/*
 .env
