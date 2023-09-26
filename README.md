@@ -6,6 +6,7 @@
 - [Getting Started](#getting-started)
 - [Endpoints](#endpoints)
 - [Usage](#usage)
+- [Multithreading](#multithreading)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -65,6 +66,31 @@ The API should now be running locally at http://localhost:8080.
   - `releaseDate` (optional): Game release date
   - `generalRating` (optional): General rating of the game
 - **Response**: List of GameDTO objects that match the search criteria.
+
+## Technologies Used
+
+The GameReviewHub project is built using the following technologies and libraries:
+
+- **Java 17**: The primary programming language used for building the application.
+
+- **Spring Boot**: A powerful framework for building Java applications, providing a robust foundation for the project.
+
+- **Spring Boot Data JPA**: A part of the Spring Data project, enabling easy interaction with databases using the Java Persistence API (JPA).
+
+- **Spring Boot Security**: Provides security features to protect the application and manage user authentication.
+
+- **Spring Boot Web**: Enables the development of web-based applications and RESTful APIs.
+
+- **Spring Boot DevTools**: Provides development-time features like automatic application restart.
+
+- **PostgreSQL**: A popular open-source relational database used to store and manage data.
+
+- **Spring REST Docs**: Used for documenting RESTful APIs in a human-readable format.
+
+- **ModelMapper**: A Java library that simplifies object mapping between DTOs (Data Transfer Objects) and domain objects.
+
+- **Jsoup**: A Java library for working with HTML, parsing, and web scraping.
+
 
 ## Usage
 - You can use this API to access and manage game-related data for your Game Review Hub project. Use the provided endpoints to retrieve information about games and game reviews, as well as perform searches based on specific criteria.
