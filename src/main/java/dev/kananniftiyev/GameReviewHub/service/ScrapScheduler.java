@@ -16,17 +16,15 @@ public class ScrapScheduler {
         this.gameScraperService = gameScraperService;
     }
 
-    // TODO: Make them run in parallel
     @Scheduled(fixedRate = 24 * 60 * 60 * 1000) // Run every 24 hours
     public void scheduleScraping() {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
-        /*
-         * executorService.submit(() -> gameScraperService.scrape());
-         * executorService.submit(() -> reviewScraperService.startScraping(0, 1000));
-         * executorService.submit(() -> reviewScraperService.startScraping(1001,2000));
-         * executorService.submit(() -> reviewScraperService.startScraping(2001,3000));
-         */
-        executorService.submit(() -> reviewScraperService.startScraping(1722, 1723));
+
+        executorService.submit(() -> reviewScraperService.startScraping(100, 5000));
+        executorService.submit(() -> reviewScraperService.startScraping(5001, 10000));
+        executorService.submit(() -> reviewScraperService.startScraping(10000, 150000));
+
+        executorService.submit(() -> gameScraperService.scrape());
 
         // Shut down the executor service
         executorService.shutdown();

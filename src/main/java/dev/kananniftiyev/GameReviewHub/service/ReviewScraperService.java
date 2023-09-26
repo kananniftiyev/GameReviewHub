@@ -21,7 +21,6 @@ import dev.kananniftiyev.GameReviewHub.repository.ReviewRepository;
 public class ReviewScraperService {
     private final ReviewRepository reviewRepository;
     private final GameRepository gameRepository;
-    private static final Logger logger = LoggerFactory.getLogger(ReviewScraperService.class);
 
     public ReviewScraperService(ReviewRepository reviewRepository, GameRepository gameRepository) {
         this.reviewRepository = reviewRepository;
@@ -32,6 +31,8 @@ public class ReviewScraperService {
         for (int i = startId; i <= endId; i++) {
             String url = "https://opencritic.com/game/" + i + "/*";
             try {
+                Thread.sleep(5000); // Change This later.
+                System.out.println(Thread.currentThread().getId());
                 Document doc = Jsoup.connect(url).get();
                 String name = scrapName(doc);
 
@@ -39,7 +40,6 @@ public class ReviewScraperService {
 
                 Game game = gameRepository.findByName(name);
                 if (game == null) {
-                    logger.warn(name + ":Not Found");
                     continue;
                 }
 
