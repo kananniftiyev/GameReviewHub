@@ -62,6 +62,13 @@ public class GameScraperService {
                 // System.out.println(doc);
 
                 String GameName = scrapeGameName(doc);
+
+                if (GameName == "" || GameName == null) {
+                    System.out.println("NULL NAME || Skiped");
+                    Thread.sleep(5000);
+                    continue;
+                }
+
                 String GameDeveloper = scrapeGameDeveloper(doc);
                 String GamePublisher = scrapeGamePublisher(doc);
                 String GameReleaseDate = scrapeGameReleaseDate(doc);
@@ -78,11 +85,14 @@ public class GameScraperService {
                 if (game != null) {
                     // Game with the same name already exists, skip saving
                     System.out.println("Skiped");
+                    Thread.sleep(5000);
                     continue;
                 }
 
                 if (containsKeyWord(appName, "DLC", "Expansion", "Bonus", "ArtBook", "Soundtrack", "Pack")) {
+                    Thread.sleep(5000);
                     continue; // Skip processing this game
+
                 }
 
                 List<Genre> gameGenres = new ArrayList<Genre>();

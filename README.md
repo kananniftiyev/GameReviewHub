@@ -69,6 +69,29 @@ The API should now be running locally at http://localhost:8080.
 ## Usage
 - You can use this API to access and manage game-related data for your Game Review Hub project. Use the provided endpoints to retrieve information about games and game reviews, as well as perform searches based on specific criteria.
 
+## Multithreading
+
+To optimize the scraping process, we've implemented parallel threading in the `ScrapScheduler` component. This allows for efficient data retrieval from external sources. The `ScrapScheduler` currently runs the following tasks in parallel:
+
+```java
+@Scheduled(fixedRate = 24 * 60 * 60 * 1000) // Runs every 24 hours
+public void scheduleScraping() {
+    ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+    executorService.submit(() -> reviewScraperService.startScraping(100, 5000));
+    executorService.submit(() -> reviewScraperService.startScraping(5001, 10000));
+    executorService.submit(() -> reviewScraperService.startScraping(10000, 150000));
+
+    executorService.submit(() -> gameScraperService.scrape());
+
+    // Shutdown the executor service
+    executorService.shutdown();
+}
+```
+
+This design ensures the efficient utilization of resources during the scraping process. Parallel threading enables multiple tasks to run concurrently, enhancing the speed and effectiveness of data retrieval from external sources.
+
+
 ## Contributing
 - Contributions to this project are welcome. If you find any issues or have suggestions for improvements, please open an issue or create a pull request.
 

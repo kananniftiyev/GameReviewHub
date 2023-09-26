@@ -39,3 +39,5 @@ src/main/resources/*
 myapp.log
 TODO.md
 src/main/resources/application.properties
+*.properties
+src/main/resources/application.properties
