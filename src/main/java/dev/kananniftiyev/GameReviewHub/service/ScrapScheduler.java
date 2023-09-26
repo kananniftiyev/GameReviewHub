@@ -25,7 +25,8 @@ public class ScrapScheduler {
          * executorService.submit(() -> reviewScraperService.startScraping(1001,2000));
          * executorService.submit(() -> reviewScraperService.startScraping(2001,3000));
          */
-        executorService.submit(() -> reviewScraperService.startScraping(1722, 1723));
+        // executorService.submit(() -> gameScraperService.scrape());
+        // executorService.submit(() -> reviewScraperService.startScraping(1722, 1723));
 
         // Shut down the executor service
         executorService.shutdown();

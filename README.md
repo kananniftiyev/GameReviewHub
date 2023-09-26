@@ -16,7 +16,7 @@ To get started with this API, follow these steps:
 1. **Clone the Repository**: Clone this repository to your local machine.
 
    ```bash
-   git clone https://github.com/yourusername/GameReviewHub-API.git
+   git clone https://github.com/kananniftiyev/GameReviewHub-API.git
    ```
 2. **Install Dependencies**: Make sure you have Java and Spring Boot installed. You can also use Maven for dependency management.
 
