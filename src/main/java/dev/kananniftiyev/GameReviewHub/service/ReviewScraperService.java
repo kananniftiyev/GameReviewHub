@@ -32,7 +32,6 @@ public class ReviewScraperService {
             String url = "https://opencritic.com/game/" + i + "/*";
             try {
                 Thread.sleep(5000); // Change This later.
-                System.out.println(Thread.currentThread().getId());
                 Document doc = Jsoup.connect(url).get();
                 String name = scrapName(doc);
 

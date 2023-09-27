@@ -9,11 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 
 import dev.kananniftiyev.GameReviewHub.entity.Game;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@TestPropertySource(properties = {
+        "spring.datasource.url=jdbc:postgresql://localhost:5432/GameReviewHub",
+        "spring.datasource.username=postgres",
+        "spring.datasource.password=kanan123",
+        "spring.datasource.driver-class-name=org.postgresql.Driver"
+})
 public class GameRepositoryTest {
 
     @Autowired

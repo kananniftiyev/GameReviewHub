@@ -16,8 +16,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import dev.kananniftiyev.GameReviewHub.data.ReviewContent;
-import dev.kananniftiyev.GameReviewHub.entity.Game;
-import dev.kananniftiyev.GameReviewHub.entity.Review;
 import dev.kananniftiyev.GameReviewHub.repository.GameRepository;
 import dev.kananniftiyev.GameReviewHub.repository.ReviewRepository;
 

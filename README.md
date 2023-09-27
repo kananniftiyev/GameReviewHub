@@ -1,6 +1,26 @@
 <h1 align="center">Game Review Hub REST API</h1>
 <h4 align="center">GameReviewHub is a comprehensive platform that aggregates game reviews, user ratings, and essential game information, providing gamers with a centralized hub for discovering, comparing, and reviewing video games.</h4>
 
+## Technologies Used
+
+Here are the technologies and dependencies used in this project:
+
+- [Spring Boot](https://spring.io/projects/spring-boot): A framework for building Java applications quickly and easily.
+- [Spring Data JPA](https://spring.io/projects/spring-data-jpa): Part of the larger Spring Data project, it makes it easy to easily implement JPA-based repositories.
+- [Spring Security](https://spring.io/projects/spring-security): Provides security features for your application, including authentication and authorization.
+- [Spring Web](https://spring.io/guides/gs/spring-boot/): Building web applications using Spring MVC.
+- [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using.devtools): Tools that make application development in Spring Boot even easier.
+- [PostgreSQL](https://www.postgresql.org/): A powerful, open-source relational database system.
+- [Spring Boot Starter Test](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-testing): Provides testing support in Spring Boot applications.
+- [Spring REST Docs](https://spring.io/projects/spring-restdocs): Documentation generation for RESTful services using Spring MVC.
+- [Spring Security Test](https://spring.io/guides/gs/securing-web/): Utilities for testing Spring Security.
+- [ModelMapper](http://modelmapper.org/): An object mapping library that can automatically transform objects from one model to another.
+- [Jsoup](https://jsoup.org/): A Java library for working with real-world HTML.
+- [JUnit](https://junit.org/junit5/): A popular testing framework for Java.
+- [H2 Database](https://www.h2database.com/html/main.html): A lightweight, in-memory database for development and testing.
+- [Mockito](https://site.mockito.org/): A mocking framework for unit testing in Java.
+
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -66,31 +86,6 @@ The API should now be running locally at http://localhost:8080.
   - `releaseDate` (optional): Game release date
   - `generalRating` (optional): General rating of the game
 - **Response**: List of GameDTO objects that match the search criteria.
-
-## Technologies Used
-
-The GameReviewHub project is built using the following technologies and libraries:
-
-- **Java 17**: The primary programming language used for building the application.
-
-- **Spring Boot**: A powerful framework for building Java applications, providing a robust foundation for the project.
-
-- **Spring Boot Data JPA**: A part of the Spring Data project, enabling easy interaction with databases using the Java Persistence API (JPA).
-
-- **Spring Boot Security**: Provides security features to protect the application and manage user authentication.
-
-- **Spring Boot Web**: Enables the development of web-based applications and RESTful APIs.
-
-- **Spring Boot DevTools**: Provides development-time features like automatic application restart.
-
-- **PostgreSQL**: A popular open-source relational database used to store and manage data.
-
-- **Spring REST Docs**: Used for documenting RESTful APIs in a human-readable format.
-
-- **ModelMapper**: A Java library that simplifies object mapping between DTOs (Data Transfer Objects) and domain objects.
-
-- **Jsoup**: A Java library for working with HTML, parsing, and web scraping.
-
 
 ## Usage
 - You can use this API to access and manage game-related data for your Game Review Hub project. Use the provided endpoints to retrieve information about games and game reviews, as well as perform searches based on specific criteria.

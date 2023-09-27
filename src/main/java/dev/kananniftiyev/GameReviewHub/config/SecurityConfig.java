@@ -17,40 +17,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
-        String encodedPassword = new BCryptPasswordEncoder().encode("123");
+        @Bean
+        public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+                String encodedPassword = new BCryptPasswordEncoder().encode("123");
 
-        return new InMemoryUserDetailsManager(
-                User.withUsername("kanan")
-                        .password(encodedPassword)
-                        .roles("USER")
-                        .build(),
+                return new InMemoryUserDetailsManager(
+                                User.withUsername("kanan")
+                                                .password(encodedPassword)
+                                                .roles("USER")
+                                                .build(),
 
-                User.withUsername("hey")
-                        .password(encodedPassword)
-                        .roles("ADMIN")
-                        .build());
-    }
+                                User.withUsername("hey")
+                                                .password(encodedPassword)
+                                                .roles("ADMIN")
+                                                .build());
+        }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .cors()
-                .and()
-                .csrf(csfr -> csfr.disable())
-                .authorizeRequests(auth -> auth.requestMatchers(HttpMethod.GET, "/api/v1/**")
-                        .permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN"))
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .httpBasic(Customizer.withDefaults()).build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                return http
+                                .cors()
+                                .and()
+                                .csrf(csfr -> csfr.disable())
+                                .authorizeRequests(auth -> auth.requestMatchers(HttpMethod.GET, "/api/v1/**")
+                                                .permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.PATCH, "/api/v1/**").hasRole("ADMIN")
+                                                .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN"))
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .httpBasic(Customizer.withDefaults()).build();
+        }
 }
