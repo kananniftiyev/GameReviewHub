@@ -72,7 +72,7 @@ public class ReviewScraperService {
 
     }
 
-    private String scrapName(Document doc) {
+    public String scrapName(Document doc) {
         Element nameElement = doc.selectFirst("h1.mb-0");
         if (nameElement == null) {
             return null;
@@ -80,7 +80,7 @@ public class ReviewScraperService {
         return nameElement.text();
     }
 
-    private List<String> scrapPlatforms(Document doc) {
+    public List<String> scrapPlatforms(Document doc) {
         Elements platformElement = doc.select("div.platforms > span > strong");
         List<String> platforms = new ArrayList<>();
         if (platformElement == null) {
@@ -92,7 +92,7 @@ public class ReviewScraperService {
         return platforms;
     }
 
-    private String scrapGeneralGameRating(Document doc) {
+    public String scrapGeneralGameRating(Document doc) {
         Element ratingElement = doc.selectFirst("div.inner-orb");
         if (ratingElement == null) {
             return null;
@@ -100,7 +100,7 @@ public class ReviewScraperService {
         return ratingElement.text();
     }
 
-    private List<ReviewContent> scrapReviewContents(Document doc, int i) {
+    public List<ReviewContent> scrapReviewContents(Document doc, int i) {
         List<ReviewContent> reviewContents = new ArrayList<>();
         Elements elements = doc.select("app-review-row");
         for (int k = 2; k <= 10; k++) {
