@@ -8,6 +8,7 @@ import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,17 +41,17 @@ public class Game {
     @Column(name = "description", length = 10000, columnDefinition = "TEXT")
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "buy_links", joinColumns = @JoinColumn(name = "game_id"))
     @Column(name = "buy_links")
     private List<String> buyLinks;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "platforms", joinColumns = @JoinColumn(name = "game_id"))
     @Column(name = "platform")
     private List<String> platforms;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Genre> genres;
 
     @Column(name = "general_rating")

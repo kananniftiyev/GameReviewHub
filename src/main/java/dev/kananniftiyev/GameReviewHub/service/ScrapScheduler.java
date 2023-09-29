@@ -20,11 +20,13 @@ public class ScrapScheduler {
     public void scheduleScraping() {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        executorService.submit(() -> reviewScraperService.startScraping(100, 5000));
-        executorService.submit(() -> reviewScraperService.startScraping(5001, 10000));
-        executorService.submit(() -> reviewScraperService.startScraping(10000, 150000));
+        // executorService.submit(() -> reviewScraperService.startScraping(100, 5000));
+        // executorService.submit(() -> reviewScraperService.startScraping(5001,
+        // 10000));
+        // executorService.submit(() -> reviewScraperService.startScraping(10000,
+        // 150000));
 
-        executorService.submit(() -> gameScraperService.scrape());
+        // executorService.submit(() -> gameScraperService.scrape());
 
         // Shut down the executor service
         executorService.shutdown();
